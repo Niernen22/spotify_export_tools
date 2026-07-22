@@ -3,10 +3,17 @@ import os
 import subprocess
 import sys
 
-# List available CSVs in the current folder
-csv_files = [f for f in os.listdir(".") if f.endswith(".csv")]
+ydl_opts = {
+    "format": "bestaudio/best",
+    "ffmpeg_location": r"C:\ffmpeg\bin",
+}
+
+csv_folder = "exported_lists"
+
+csv_files = [f for f in os.listdir(csv_folder) if f.endswith(".csv")]
+
 if not csv_files:
-    print("No CSV files found in the current folder.")
+    print("No CSV files found in the exported_lists folder.")
     sys.exit()
 
 print("Available CSV files:")
@@ -19,6 +26,8 @@ if choice.isdigit() and 1 <= int(choice) <= len(csv_files):
     csv_file = csv_files[int(choice) - 1]
 else:
     csv_file = choice if choice.endswith(".csv") else choice + ".csv"
+
+csv_file = os.path.join(csv_folder, csv_file)
 
 if not os.path.exists(csv_file):
     print(f"File '{csv_file}' not found.")
@@ -62,7 +71,7 @@ for i, row in enumerate(rows, start=1):
         [
             sys.executable, "-m", "yt_dlp",
             "--no-check-certificate",
-            "--ffmpeg-location", os.path.dirname(os.path.abspath(__file__)),
+            "--ffmpeg-location", r"C:\ffmpeg\bin",
             "-x",
             "--audio-format", "mp3",
             "--audio-quality", "0",

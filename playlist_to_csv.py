@@ -46,7 +46,7 @@ print(f"Total items fetched: {len(tracks)}")
 
 import csv
 filename = f"{target['name']}.csv"
-with open(filename, "w", newline="", encoding="utf-8") as f:
+with open("exported_lists/" + filename, "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
     writer.writerow(["Artist(s)", "Song"])
     for entry in tracks:
